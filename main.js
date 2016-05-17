@@ -48,7 +48,7 @@ $('#textbox').on('keyup', function() {
                 }
                 if (is_group) {
                     chunk_size += 2;
-                    group_arr.push(stored_arr);
+                    group_arr.push(stored_arr.join('').substr(0, stored_arr.length/2));
                     stored_arr = [];
                 }
             }
