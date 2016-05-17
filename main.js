@@ -1,62 +1,47 @@
-// Process text on keyup
+// Process text on keypress
 $('#textbox').on('keyup', function() {
     var word = $('#textbox').val();
-    var chunk_size = 0;
-    var left_arr = [];
-    var right_arr = [];
+    var chunk_size = 1; // minimum chunk size is 1
+    var stored_arr = []; // mismatched letters, stored to check for groupings
 
-    // Go through each letter
+    // Go through each letter (not actually going through everything)
     for (var i = 0; i < word.length; i++) {
+        var head = i;
+        var tail = word.length-1-i;
 
-        if (i === word.length-1-i) {
-            chunk_size += 1;
-            break;
-        } else if (i > word.length-1-i) {
+        // Exit once the head and tail meet up
+        if (head >= tail) {
             break;
         }
 
-
-        var left = word[i]; // start at first letter
-        var right = word[word.length-1-i]; // start at last letter
-
         // Compare letters
-        if (left === right) {
-            if (!left_arr.length && !right_arr.length) { // both arrays empty
+        var head_char = word[head];
+        var tail_char = word[tail];
+        if (stored_arr.length === 0) { // no mismatched letters stored
+            if (head_char === tail_char) {
                 chunk_size += 2;
             } else {
-                left_arr.push(left);
-                right_arr.push(right);
+                stored_arr.shift(head_char);
+                stored_arr.push(tail_char);
             }
         } else {
-            left_arr.push(left);
-            right_arr.push(right);
-            if (left_arr.length || right_arr.length) {
-                if (is_palindrome(left_arr, right_arr)) {
+            stored_arr.shift(head_char);
+            stored_arr.push(tail_char);
+            if (head_char !== tail_char) { // test for groups in stored letters
+                var is_group = true;
+                var midpoint = stored_arr.length/2;
+                for (var j = 0; j < midpoint; j++) {
+                    if (stored_arr[j] !== stored_arr[j+midpoint]) {
+                        is_group = false;
+                        break;
+                    }
+                }
+                if (is_group) {
                     chunk_size += 2;
-                    left_arr = [];
-                    right_arr = [];
+                    stored_arr = [];
                 }
             }
         }
     }
-
-    if (chunk_size === 0) {
-        chunk_size = 1;
-    }
     console.log(chunk_size);
-
 });
-
-function is_palindrome(arr1, arr2) {
-    if (arr1.length !== arr2.length) {
-        return false;
-    }
-
-    for (var i = 0; i < arr1.length; i++) {
-        if (arr1[i] !== arr2[i]) {
-            return false;
-        }
-    }
-
-    return true;
-}
