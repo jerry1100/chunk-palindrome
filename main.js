@@ -18,7 +18,9 @@ $('#textbox').on('keyup', function() {
                 stored_arr.splice(stored_arr.length/2, 0, head_char);
                 group_arr.splice(group_arr.length/2, 0, stored_arr.join(''));
             } else {
-                group_arr.splice(group_arr.length/2, 0, stored_arr.join(''));
+                if (stored_arr.length !== 0) { // nothing to add
+                    group_arr.splice(group_arr.length/2, 0, stored_arr.join(''));
+                }
             }
             chunk_size  += 1;
             break;
