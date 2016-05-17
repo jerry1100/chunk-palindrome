@@ -4,11 +4,13 @@ $('#textbox').on('keyup', function() {
     var chunk_size = 0;
     var left_arr = [];
     var right_arr = [];
+    var palindromes = [];
 
     // Go through each letter
     for (var i = 0; i < word.length; i++) {
 
         if (i === word.length-1-i) {
+            palindromes.push(word[i]);
             chunk_size += 1;
             break;
         } else if (i > word.length-1-i) {
@@ -22,6 +24,7 @@ $('#textbox').on('keyup', function() {
         // Compare letters
         if (left === right) {
             if (!left_arr.length && !right_arr.length) { // both arrays empty
+                palindromes.push([left, right]);
                 chunk_size += 2;
             } else {
                 left_arr.push(left);
@@ -32,12 +35,16 @@ $('#textbox').on('keyup', function() {
             right_arr.push(right);
             if (left_arr.length || right_arr.length) {
                 if (is_palindrome(left_arr, right_arr)) {
+                    palindromes.push([left_arr, right_arr]);
                     chunk_size += 2;
                     left_arr = [];
                     right_arr = [];
                 }
             }
         }
+
+    console.log(left_arr);
+    console.log(right_arr);
     }
 
     if (chunk_size === 0) {
