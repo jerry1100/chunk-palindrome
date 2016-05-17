@@ -17,15 +17,15 @@ $('#textbox').on('keyup', function() {
         // Compare letters
         var head_char = word[head];
         var tail_char = word[tail];
-        if (stored_arr.length === 0) { // no mismatched letters stored
+        if (stored_arr.length === 0) { // no mismatched letters yet
             if (head_char === tail_char) {
                 chunk_size += 2;
             } else {
-                stored_arr.shift(head_char);
+                stored_arr.unshift(head_char);
                 stored_arr.push(tail_char);
             }
         } else {
-            stored_arr.shift(head_char);
+            stored_arr.unshift(head_char);
             stored_arr.push(tail_char);
             if (head_char !== tail_char) { // test for groups in stored letters
                 var is_group = true;
