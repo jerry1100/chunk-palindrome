@@ -9,30 +9,34 @@ $('#textbox').on('keyup', function() {
     for (var i = 0; i < word.length; i++) {
         var head = i;
         var tail = word.length-1-i;
+        var head_char = word[head];
+        var tail_char = word[tail];
 
         // Exit once the head and tail meet up
         if (head >= tail) {
             if (head === tail) {
-                chunk_size += 1; // middle letter is grouped with itself
-                group_arr.push(head);
+                if (stored_arr.length === 0) { // no mismatched characters, middle char is own chunk
+                    group_arr.push(head_char);
+                    chunk_size += 1;
+                }
+            } else { // mismatched characters form a single chunk
+                stored_arr.splice(stored_arr.length/2, 0, head_char);
+                group_arr.push(stored_arr.join(''));
+                chunk_size  += 1;
             }
             break;
         }
 
         // Compare letters
-        var head_char = word[head];
-        var tail_char = word[tail];
         if (stored_arr.length === 0) {
             if (head_char === tail_char) { // no mismatched letters means valid chunks
                 chunk_size += 2;
-                group_arr.push([head, head]);
-            } else { // insert mismatched head to beginning, tail to end
-                stored_arr.unshift(head_char);
-                stored_arr.push(tail_char);
+                group_arr.push(head_char);
+            } else { // store unmatched head and tail
+                stored_arr.push(head_char, tail_char);
             }
         } else {
-            stored_arr.unshift(head_char);
-            stored_arr.push(tail_char);
+            stored_arr.splice(stored_arr.length/2, 0, head_char, tail_char); // store in middle
             if (head_char !== tail_char) { // groups possible only for mismatched chars
                 var is_group = true;
                 var midpoint = stored_arr.length/2;
@@ -50,11 +54,7 @@ $('#textbox').on('keyup', function() {
             }
         }
     }
-
-    if (chunk_size === 0) { // no matches at all, entire word is one group
-        chunk_size = 1;
-        group_arr.push(word);
-    }
     console.log(chunk_size);
     console.log(group_arr);
+    console.log('test');
 });
