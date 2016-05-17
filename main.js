@@ -1,5 +1,5 @@
 // Process text on keyup
-$('#textbox').on('keyup', function() {
+$('#textbox').on('click', function() {
     var word = $('#textbox').val();
     var chunk_size = 0;
     var left_arr = [];
