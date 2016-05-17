@@ -17,20 +17,20 @@ $('#textbox').on('keyup', function() {
         // Compare letters
         var head_char = word[head];
         var tail_char = word[tail];
-        if (stored_arr.length === 0) { // no mismatched letters yet
-            if (head_char === tail_char) {
+        if (stored_arr.length === 0) {
+            if (head_char === tail_char) { // no mismatched letters means valid chunks
                 chunk_size += 2;
-            } else {
+            } else { // insert mismatched head to beginning, tail to end
                 stored_arr.unshift(head_char);
                 stored_arr.push(tail_char);
             }
         } else {
             stored_arr.unshift(head_char);
             stored_arr.push(tail_char);
-            if (head_char !== tail_char) { // test for groups in stored letters
+            if (head_char !== tail_char) { // groups possible only for mismatched chars
                 var is_group = true;
                 var midpoint = stored_arr.length/2;
-                for (var j = 0; j < midpoint; j++) {
+                for (var j = 0; j < midpoint; j++) { // test for groups
                     if (stored_arr[j] !== stored_arr[j+midpoint]) {
                         is_group = false;
                         break;
