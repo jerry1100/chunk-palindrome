@@ -1,1 +1,3 @@
-console.log(1);
+$('#textbox').on('keyup', function() {
+    console.log($('#textbox').val());
+});
