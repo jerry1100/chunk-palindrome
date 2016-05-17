@@ -1,6 +1,6 @@
 // Process text on keypress
 $('#textbox').on('keyup', function() {
-    var word = $('#textbox').val();
+    var word = $('#textbox').val().toUpperCase(); // get word, case-insensitive
     var chunk_size = 1; // minimum chunk size is 1
     var stored_arr = []; // mismatched letters, stored to check for groupings
 
