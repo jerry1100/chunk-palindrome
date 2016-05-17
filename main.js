@@ -1,7 +1,7 @@
 // Process text on keypress
 $('#textbox').on('keyup', function() {
     var word = $('#textbox').val().toUpperCase(); // get word, case-insensitive
-    var chunk_size = 1; // minimum chunk size is 1
+    var chunk_size = 0; // store "chunks" or groups of matching characters
     var stored_arr = []; // mismatched letters, stored to check for groupings
 
     // Go through each letter (not actually going through everything)
@@ -11,6 +11,9 @@ $('#textbox').on('keyup', function() {
 
         // Exit once the head and tail meet up
         if (head >= tail) {
+            if (head === tail) {
+                chunk_size += 1; // middle letter is grouped with itself
+            }
             break;
         }
 
@@ -42,6 +45,10 @@ $('#textbox').on('keyup', function() {
                 }
             }
         }
+    }
+
+    if (chunk_size === 0) { // minimum chunk sie is 1 (entire word is one group)
+        chunk_size = 1;
     }
     console.log(chunk_size);
 });
