@@ -56,6 +56,11 @@ $('#textbox').on('keyup', function() {
             }
         }
     }
-    console.log(chunk_size);
-    console.log(chunk_arr);
+
+    // Display chunks
+    var html_str = '';
+    for (var i = 0; i < chunk_arr.length; i++) {
+        html_str += '<div>'+chunk_arr[i]+'</div>';
+    }
+    $('#display_chunks').html(html_str);
 });
