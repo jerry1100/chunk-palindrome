@@ -60,7 +60,7 @@ $('#textbox').on('keyup', function() {
     // Display chunks
     var html_str = '';
     for (var i = 0; i < chunk_arr.length; i++) {
-        html_str += '<div>'+chunk_arr[i]+'</div>';
+        html_str += '<div class="chunk_box">'+chunk_arr[i]+'</div>';
     }
     $('#display_chunks').html(html_str);
 });

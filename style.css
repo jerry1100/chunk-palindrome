@@ -1,0 +1,11 @@
+#display_chunks {
+    background-color: yellow;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 300px;
+}
+#chunk_box {
+    width: 10%;
+    height: 100%;
+}
