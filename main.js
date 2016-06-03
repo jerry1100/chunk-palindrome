@@ -58,9 +58,24 @@ $('#textbox').on('keyup', function() {
     }
 
     // Display chunks
+	var chunk_count = chunk_arr.length;
     var html_str = '';
-    for (var i = 0; i < chunk_arr.length; i++) {
-        html_str += '<div class="chunk_box">'+chunk_arr[i]+'</div>';
+    for (var i = 0; i < chunk_count; i++) {
+		var chunk_id = (i < chunk_count/2) ? i : chunk_count-i-1;
+        html_str += '<div val="'+chunk_id+'" class="chunk_box">'+chunk_arr[i]+'</div>';
     }
-    $('#display_chunks').html(html_str);
+	$('#chunk_count').html('Chunk Count: '+chunk_count);
+	$('#display_chunks').html(html_str);
+});
+
+// Highlight groups on hover
+$('#display_chunks').on('mouseover', '.chunk_box', function() {
+	var chunk_id = $(this).attr('val');
+	$('[val='+chunk_id+']').css('background-color', 'yellow');
+});
+
+// Remove highlight on exit
+$('#display_chunks').on('mouseleave', '.chunk_box', function() {
+	var chunk_id = $(this).attr('val');
+	$('[val='+chunk_id+']').css('background-color', '');
 });
