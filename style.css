@@ -22,7 +22,7 @@ body {
 	background-color: white;
 	display: inline-block;
 	padding: 50px 30px;
-	border: 1px #BBBBBB;
+	border: 1px solid black;
 }
 .center {
 	margin-left: auto;
