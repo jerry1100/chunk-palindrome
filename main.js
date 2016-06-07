@@ -1,6 +1,6 @@
 // Process text on keypress
 $('#textbox').on('keyup', function() {
-    var word = $('#textbox').val().toUpperCase(); // get word, case-insensitive
+    var word = $('#textbox').val().toUpperCase().replace(/ /g, ''); // case-insensitive, ignore white-space
     var chunk_size = 0; // number of chunks in string
     var stored_arr = []; // keep track of incomplete chunks
     var chunk_arr = []; // separate chunks for UI and visualization
